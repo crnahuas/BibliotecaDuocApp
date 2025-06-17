@@ -1,0 +1,6 @@
+cl\bibliotecaduoc\main\BibliotecaDuoc.class
+excepciones\LibroYaPrestadoException.class
+modelo\Libro.class
+excepciones\LibroNoEncontradoException.class
+logica\Biblioteca.class
+modelo\Usuario.class
