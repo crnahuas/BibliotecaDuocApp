@@ -58,7 +58,7 @@ public class Libro implements Comparable <Libro> {
                this.titulo.equalsIgnoreCase(otro.titulo);
     }
     
-    
+    // Ignora mayúsculas
     @Override
     public int hashCode() {
         return codigo.toLowerCase().hashCode();

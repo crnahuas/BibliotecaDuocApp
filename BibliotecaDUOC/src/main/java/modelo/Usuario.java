@@ -48,4 +48,20 @@ public class Usuario implements Comparable <Usuario> {
         Usuario otro = (Usuario) obj;
         return this.rut.equalsIgnoreCase(otro.rut);
     }
+    
+    // Ignora mayúsculas
+    @Override
+    public int hashCode() {
+        return rut.toLowerCase().hashCode();
+    }
+    
+    // Permite ordenar usuarios, Apellido primero, luego nombre
+    @Override
+    public int compareTo(Usuario otro) {
+        int comparacionApellido = this.apellido.compareToIgnoreCase(otro.apellido);
+        if (comparacionApellido != 0) {
+            return comparacionApellido;
+        }
+        return this.nombre.compareToIgnoreCase(otro.nombre);
+    }
 }
