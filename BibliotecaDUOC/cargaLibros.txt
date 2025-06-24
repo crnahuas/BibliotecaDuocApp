@@ -1,3 +1,16 @@
-L001,Java: Cómo Programar,Paul Deitel,true
-L002,Clean Code,Robert C. Martin,false
-L003,Estructuras de Datos en Java,Robert Lafore,true
+L001,Estructuras de Datos,Robert Lafore,false
+L002,Redes Avanzadas,Andrew Tanenbaum,true
+L003,Bases de Datos,Carlos Coronel,true
+L004,Inteligencia Artificial,Stuart Russell,true
+L005,Diseño de Software,Robert C. Martin,false
+L006,Machine Learning,Joel Grus,true
+L007,Python desde Cero,Luis Joyanes,true
+L008,Desarrollo Web,Jon Duckett,false
+L009,Clean Code,Eric Elliott,false
+L010,Programación Java,Paul Deitel,true
+L011,Estructuras de Datos,Robert Lafore,true
+L012,Redes Avanzadas,Andrew Tanenbaum,false
+L013,Bases de Datos,Carlos Coronel,false
+L014,Inteligencia Artificial,Stuart Russell,false
+L001,Estructuras de Datos,Robert Lafore,false
+L002,Redes Avanzadas,Andrew Tanenbaum,true
