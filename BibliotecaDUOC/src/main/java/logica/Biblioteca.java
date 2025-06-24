@@ -10,16 +10,24 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
-// Clase principal que administra libros y usuarios de una biblioteca.
+// Clase que administra los libros y usuarios de una biblioteca.
 public class Biblioteca {
 
-    private ArrayList<Libro> libros = new ArrayList<>();
-    ArrayList<Libro> librosPrestados = new ArrayList<>();
-    private HashMap<String, ArrayList<Libro>> prestamosPorUsuario = new HashMap<>();
-    private HashMap<String, Usuario> usuarios = new HashMap<>();
+    // Conjunto de libros únicos sin duplicados
+    private Set<Libro> libros = new HashSet<>();
 
-    // Constructor. Carga libros iniciales al crear una nueva biblioteca.
+    // Lista de préstamos por RUT
+    private Map<String, ArrayList<Libro>> prestamosPorUsuario = new HashMap<>();
+
+    // Usuarios ordenados alfabéticamente
+    private Set<Usuario> usuarios = new TreeSet<>();
+
+    // Constructor: inicializa con libros por defecto
     public Biblioteca() {
         cargarLibrosIniciales();
     }
