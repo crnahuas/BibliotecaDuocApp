@@ -22,12 +22,12 @@ public class BibliotecaDuoc {
         while (!salir) {
             System.out.println("\nMenú:");
             System.out.println("1. Registrar usuario");
-            System.out.println("2. Listar libros disponibles");
-            System.out.println("3. Buscar un libro");
-            System.out.println("4. Prestar un libro");
-            System.out.println("5. Devolver un libro");
-            System.out.println("6. Ver libros prestados");
-            System.out.println("7. Exportar libros prestados por usuario");
+            System.out.println("2. Listar libros");
+            System.out.println("3. Buscar libro");
+            System.out.println("4. Prestar libro");
+            System.out.println("5. Devolver libro");
+            System.out.println("6. libros prestados");
+            System.out.println("7. Exportar libro");
             System.out.println("8. Exportar usuarios");
             System.out.println("9. Cargar usuarios");
             System.out.println("10. Exportar libros");
@@ -119,10 +119,10 @@ public class BibliotecaDuoc {
                         break;                        
                         
                     case 8:
-                        System.out.print("Ingrese nombre del archivo para guardar usuarios: ");
+                        System.out.print("Ingrese nombre del archivo para guardar usuarios ordenados: ");
                         String archivoGuardar = scanner.nextLine();
                         archivoGuardar = asegurarExtensionTxt(archivoGuardar);
-                        biblioteca.guardarUsuariosEnArchivo(archivoGuardar);
+                        biblioteca.exportarUsuariosOrdenados(archivoGuardar);
                         break;
 
                     case 9:
