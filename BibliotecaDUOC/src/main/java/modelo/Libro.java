@@ -57,5 +57,11 @@ public class Libro implements Comparable <Libro> {
         return this.codigo.equalsIgnoreCase(otro.codigo) &&
                this.titulo.equalsIgnoreCase(otro.titulo);
     }
+    
+    
+    @Override
+    public int hashCode() {
+        return codigo.toLowerCase().hashCode();
+    }
 
 }
