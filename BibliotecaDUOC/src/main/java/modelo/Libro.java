@@ -1,12 +1,12 @@
 package modelo;
 
-// Representa un libro con título, autor y disponibilidad.
-public class Libro {
+// Representa un libro con código único, título, autor y disponibilidad.
+public class Libro implements Comparable <Libro> {
 
-    private String codigo;
-    private String titulo;
-    private String autor;
-    private boolean disponible;
+    private String codigo;       // Código único del libro (ej: L001)
+    private String titulo;       // Título del libro
+    private String autor;        // Autor del libro
+    private boolean disponible;  // Estado del libro: disponible o prestado
 
     // Constructor de Libro.
     public Libro(String codigo, String titulo, String autor, boolean disponible) {
@@ -40,5 +40,11 @@ public class Libro {
     @Override
     public String toString() {
         return "[" + codigo + "] " + titulo + " - " + autor + " | " + (disponible ? "Disponible" : "Prestado");
+    }
+    
+    // Permite ordenar libros por título (usado en TreeSet)
+    @Override
+    public int compareTo(Libro otro) {
+        return this.titulo.compareToIgnoreCase(otro.titulo);
     }
 }
