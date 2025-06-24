@@ -1,66 +1,66 @@
 package modelo;
 
 // Representa un libro con código único, título, autor y disponibilidad.
-public class Libro implements Comparable <Libro> {
+public class Usuario implements Comparable<Usuario> {
 
-    private String codigo;       // Código único del libro (ej: L001)
-    private String titulo;       // Título del libro
-    private String autor;        // Autor del libro
-    private boolean disponible;  // Estado del libro: disponible o prestado
+    private String rut;
+    private String nombre;
+    private String apellido;
 
-    // Constructor de Libro.
-    public Libro(String codigo, String titulo, String autor, boolean disponible) {
-        this.codigo = codigo;
-        this.titulo = titulo;
-        this.autor = autor;
-        this.disponible = disponible;
+    // Constructor principal del usuario
+    public Usuario(String rut, String nombre, String apellido) {
+        this.rut = rut;
+        this.nombre = nombre;
+        this.apellido = apellido;
     }
 
-    // Getters y Setters
-    public String getCodigo() {
-        return codigo;
+    // Getter y Setters
+    public String getRut() {
+        return rut;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getNombre() {
+        return nombre;
     }
 
-    public String getAutor() {
-        return autor;
+    public String getApellido() {
+        return apellido;
     }
 
-    public boolean isDisponible() {
-        return disponible;
+    // Valida que el RUT tenga formato correcto: XX.XXX.XXX-X o XXXXXXXX-X.
+    public static boolean validarFormatoRUT(String rut) {
+        return rut.matches("^\\d{1,2}\\.\\d{3}\\.\\d{3}-[\\dkK]$")
+            || rut.matches("^\\d{7,8}-[\\dkK]$");
     }
 
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
-    }
-
+    // Representación de usuario
     @Override
     public String toString() {
-        return "[" + codigo + "] " + titulo + " - " + autor + " | " + (disponible ? "Disponible" : "Prestado");
+        return nombre + " " + apellido + " (RUT: " + rut + ")";
     }
-    
-    // Permite ordenar libros por título (TreeSet)
+
+    // Dos usuarios son iguales si tienen el mismo RUT
     @Override
-    public int compareTo(Libro otro) {
-        return this.titulo.compareToIgnoreCase(otro.titulo);
-    }
-    
-    // Dos libros son iguales si tienen el mismo código y título
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof Libro)) return false;
-
-        Libro otro = (Libro) obj;
-        return codigo.equalsIgnoreCase(otro.codigo) && titulo.equalsIgnoreCase(otro.titulo);
+        if (!(obj instanceof Usuario)) return false;
+        Usuario otro = (Usuario) obj;
+        return this.rut.equalsIgnoreCase(otro.rut);
     }
-    
+
     // Ignora mayúsculas
     @Override
     public int hashCode() {
-        return (codigo + titulo).toLowerCase().hashCode();
+        return rut.toLowerCase().hashCode();
     }
 
-}
+    // Permite ordenar usuarios, Apellido primero, luego nombre
+    @Override
+    public int compareTo(Usuario otro) {
+        int comparacionApellido = this.apellido.compareToIgnoreCase(otro.apellido);
+        if (comparacionApellido != 0) {
+            return comparacionApellido;
+        }
+        return this.nombre.compareToIgnoreCase(otro.nombre);
+    }
+} 

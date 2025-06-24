@@ -1,11 +1,8 @@
 package modelo;
 
-import java.util.HashMap;
-import java.util.Objects;
+// Clase que representa a un usuario de la biblioteca
+public class Usuario implements Comparable<Usuario> {
 
-// Clase que representa a un usuario de la biblioteca.
-public class Usuario implements Comparable <Usuario> {
-    
     private String rut;
     private String nombre;
     private String apellido;
@@ -16,7 +13,7 @@ public class Usuario implements Comparable <Usuario> {
         this.nombre = nombre;
         this.apellido = apellido;
     }
-    
+
     // Getter y Setters
     public String getRut() {
         return rut;
@@ -29,19 +26,19 @@ public class Usuario implements Comparable <Usuario> {
     public String getApellido() {
         return apellido;
     }
-        
+
     // Valida que el RUT tenga formato correcto: XX.XXX.XXX-X o XXXXXXXX-X.
     public static boolean validarFormatoRUT(String rut) {
         return rut.matches("^\\d{1,2}\\.\\d{3}\\.\\d{3}-[\\dkK]$")
             || rut.matches("^\\d{7,8}-[\\dkK]$");
     }
-    
+
     // Representación de usuario
     @Override
     public String toString() {
         return nombre + " " + apellido + " (RUT: " + rut + ")";
     }
-    
+
     // Dos usuarios son iguales si tienen el mismo RUT
     @Override
     public boolean equals(Object obj) {
@@ -50,13 +47,13 @@ public class Usuario implements Comparable <Usuario> {
         Usuario otro = (Usuario) obj;
         return this.rut.equalsIgnoreCase(otro.rut);
     }
-    
+
     // Ignora mayúsculas
     @Override
     public int hashCode() {
         return rut.toLowerCase().hashCode();
     }
-    
+
     // Permite ordenar usuarios, Apellido primero, luego nombre
     @Override
     public int compareTo(Usuario otro) {
@@ -66,4 +63,4 @@ public class Usuario implements Comparable <Usuario> {
         }
         return this.nombre.compareToIgnoreCase(otro.nombre);
     }
-}
+} 
