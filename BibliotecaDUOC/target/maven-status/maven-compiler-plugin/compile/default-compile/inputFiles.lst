@@ -1,6 +1,7 @@
-C:\Users\Cristian\Documents\NetBeansProjects\BibliotecaDUOC\src\main\java\cl\bibliotecaduoc\main\BibliotecaDuoc.java
-C:\Users\Cristian\Documents\NetBeansProjects\BibliotecaDUOC\src\main\java\excepciones\LibroNoEncontradoException.java
-C:\Users\Cristian\Documents\NetBeansProjects\BibliotecaDUOC\src\main\java\excepciones\LibroYaPrestadoException.java
-C:\Users\Cristian\Documents\NetBeansProjects\BibliotecaDUOC\src\main\java\logica\Biblioteca.java
-C:\Users\Cristian\Documents\NetBeansProjects\BibliotecaDUOC\src\main\java\modelo\Libro.java
-C:\Users\Cristian\Documents\NetBeansProjects\BibliotecaDUOC\src\main\java\modelo\Usuario.java
+/Users/cristian/Documents/DuocUC/BibliotecaDuocApp/BibliotecaDUOC/src/main/java/cl/bibliotecaduoc/main/BibliotecaDuoc.java
+/Users/cristian/Documents/DuocUC/BibliotecaDuocApp/BibliotecaDUOC/src/main/java/cl/bibliotecaduoc/main/PruebasBiblioteca.java
+/Users/cristian/Documents/DuocUC/BibliotecaDuocApp/BibliotecaDUOC/src/main/java/excepciones/LibroNoEncontradoException.java
+/Users/cristian/Documents/DuocUC/BibliotecaDuocApp/BibliotecaDUOC/src/main/java/excepciones/LibroYaPrestadoException.java
+/Users/cristian/Documents/DuocUC/BibliotecaDuocApp/BibliotecaDUOC/src/main/java/logica/Biblioteca.java
+/Users/cristian/Documents/DuocUC/BibliotecaDuocApp/BibliotecaDUOC/src/main/java/modelo/Libro.java
+/Users/cristian/Documents/DuocUC/BibliotecaDuocApp/BibliotecaDUOC/src/main/java/modelo/Usuario.java
