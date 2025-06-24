@@ -2,38 +2,31 @@ package logica;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeSet;
 import modelo.Libro;
+import modelo.Usuario;
 import excepciones.LibroNoEncontradoException;
 import excepciones.LibroYaPrestadoException;
-import modelo.Usuario;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.TreeSet;
 
 // Clase que administra los libros y usuarios de una biblioteca
+// Clase principal que administra libros y usuarios de una biblioteca.
 public class Biblioteca {
 
-    // Conjunto de libros únicos sin duplicados
-    private Set<Libro> libros = new HashSet<>();
+    private ArrayList<Libro> libros = new ArrayList<>();
+    private ArrayList<Libro> librosPrestados = new ArrayList<>();
+    private HashMap<String, ArrayList<Libro>> prestamosPorUsuario = new HashMap<>();
+    private HashMap<String, Usuario> usuarios = new HashMap<>();
 
-    // Lista de préstamos por RUT
-    private Map<String, ArrayList<Libro>> prestamosPorUsuario = new HashMap<>();
-
-    // Usuarios ordenados alfabéticamente
-    private Set<Usuario> usuarios = new TreeSet<>();
-
-    // Constructor: inicializa con libros por defecto
+    // Constructor. Carga libros iniciales al crear una nueva biblioteca.
     public Biblioteca() {
         cargarLibrosIniciales();
     }
 
-    // Libros variados para simular una biblioteca
+    // Carga un conjunto de libros variados para simular una biblioteca.
     private void cargarLibrosIniciales() {
         libros.add(new Libro("L001", "Java: Cómo Programar", "Paul Deitel", true));
         libros.add(new Libro("L002", "Clean Code", "Robert C. Martin", true));
@@ -57,7 +50,7 @@ public class Biblioteca {
         libros.add(new Libro("L020", "Tecnología y Sociedad", "Manuel Castells", true));
     }
 
-    // Muestra todos los libros disponibles
+    // Muestra todos los libros disponibles en la biblioteca.
     public void listarLibros() {
         if (libros.isEmpty()) {
             System.out.println("No hay libros en la biblioteca.");
@@ -69,27 +62,25 @@ public class Biblioteca {
         }
     }
 
-    // Busca un libro por su código
+    // Busca un libro por su código.
     public Libro buscarLibroPorCodigo(String codigo) throws LibroNoEncontradoException {
         for (Libro libro : libros) {
             if (libro.getCodigo().equalsIgnoreCase(codigo)) {
                 return libro;
             }
         }
-        throw new LibroNoEncontradoException("El libro con código \"" + codigo + "\" no se encuentra.");
+        throw new LibroNoEncontradoException("El libro con código \"" + codigo + "\" no se encuentra en la biblioteca.");
     }
 
-    // Presta un libro a un usuario
+    // Permite prestar un libro si está disponible.
     public void prestarLibroPorCodigo(String rut, String codigo) throws LibroNoEncontradoException, LibroYaPrestadoException {
-        Optional<Usuario> usuarioEncontrado = usuarios.stream()
-            .filter(u -> u.getRut().equalsIgnoreCase(rut)).findFirst();
-
-        if (!usuarioEncontrado.isPresent()) {
+        if (!usuarios.containsKey(rut)) {
             System.out.println("El usuario con RUT " + rut + " no está registrado.");
             return;
         }
 
         Libro libro = buscarLibroPorCodigo(codigo);
+
         if (!libro.isDisponible()) {
             throw new LibroYaPrestadoException("El libro \"" + libro.getTitulo() + "\" ya está prestado.");
         }
@@ -102,90 +93,95 @@ public class Biblioteca {
         System.out.println("Has prestado el libro: " + libro.getTitulo());
     }
 
-    // Devuelve un libro
+    // Permite devolver un libro.
     public void devolverLibroPorCodigo(String codigo) throws LibroNoEncontradoException {
         Libro libro = buscarLibroPorCodigo(codigo);
+
         if (libro.isDisponible()) {
-            System.out.println("El libro ya está disponible.");
+            System.out.println("El libro \"" + libro.getTitulo() + "\" ya está disponible.");
         } else {
             libro.setDisponible(true);
-            System.out.println("Libro devuelto: " + libro.getTitulo());
+            System.out.println("Has devuelto el libro: " + libro.getTitulo());
         }
     }
 
-    // Lista todos los libros prestados
+    // Muestra todos los libros que están actualmente prestados.
     public void listarLibrosPrestados() {
         boolean hayPrestados = false;
+        System.out.println("Libros actualmente prestados:");
         for (Libro libro : libros) {
             if (!libro.isDisponible()) {
                 System.out.println(libro);
                 hayPrestados = true;
             }
         }
-
         if (!hayPrestados) {
-            System.out.println("No hay libros prestados actualmente.");
+            System.out.println("No hay libros prestados en este momento.");
         }
     }
 
-    // Registra un nuevo usuario
+    // Permite registrar un usuario.
     public void registrarUsuario(String rut, String nombre, String apellido) {
-        Usuario nuevo = new Usuario(rut, nombre, apellido);
-        if (usuarios.contains(nuevo)) {
-            System.out.println("El usuario ya está registrado.");
+        if (usuarios.containsKey(rut)) {
+            System.out.println("El usuario con RUT " + rut + " ya está registrado.");
         } else {
-            usuarios.add(nuevo);
+            usuarios.put(rut, new Usuario(rut, nombre, apellido));
             System.out.println("Usuario registrado correctamente.");
         }
     }
 
-    // Guarda los usuarios en un archivo .txt
-    public void guardarUsuariosEnArchivo(String archivo) {
-        try (FileWriter fw = new FileWriter(archivo)) {
-            for (Usuario u : usuarios) {
-                fw.write(u.getRut() + "," + u.getNombre() + "," + u.getApellido() + "\n");
+    // Exporta usuarios ordenados alfabéticamente a un archivo.
+    public void exportarUsuariosOrdenados(String nombreArchivo) {
+        try (FileWriter escritor = new FileWriter(nombreArchivo)) {
+            TreeSet<Usuario> usuariosOrdenados = new TreeSet<>(usuarios.values());
+            for (Usuario usuario : usuariosOrdenados) {
+                escritor.write(usuario.getRut() + "," + usuario.getNombre() + "," + usuario.getApellido() + "\n");
             }
-            System.out.println("Usuarios guardados en " + archivo);
+            System.out.println("Usuarios exportados ordenadamente al archivo " + nombreArchivo);
         } catch (IOException e) {
-            System.out.println("Error al guardar usuarios: " + e.getMessage());
+            System.out.println("Error al exportar usuarios: " + e.getMessage());
         }
     }
 
-    // Carga usuarios desde archivo
-    public void cargarUsuariosDesdeArchivo(String archivo) {
-        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+    // Carga los usuarios desde archivo.
+    public void cargarUsuariosDesdeArchivo(String nombreArchivo) {
+        try (BufferedReader lector = new BufferedReader(new FileReader(nombreArchivo))) {
             String linea;
-            while ((linea = br.readLine()) != null) {
+            while ((linea = lector.readLine()) != null) {
                 String[] partes = linea.split(",");
                 if (partes.length == 3) {
-                    Usuario nuevo = new Usuario(partes[0], partes[1], partes[2]);
-                    usuarios.add(nuevo);
+                    String rut = partes[0];
+                    String nombre = partes[1];
+                    String apellido = partes[2];
+                    if (!usuarios.containsKey(rut)) {
+                        usuarios.put(rut, new Usuario(rut, nombre, apellido));
+                    }
                 }
             }
-            System.out.println("Usuarios cargados desde " + archivo);
+            System.out.println("Usuarios cargados desde el archivo " + nombreArchivo);
         } catch (IOException e) {
             System.out.println("Error al cargar usuarios: " + e.getMessage());
         }
     }
 
-    // Guarda los libros en archivo
-    public void guardarLibrosEnArchivo(String archivo) {
-        try (FileWriter fw = new FileWriter(archivo)) {
+    // Guarda los libros en archivo.
+    public void guardarLibrosEnArchivo(String nombreArchivo) {
+        try (FileWriter escritor = new FileWriter(nombreArchivo)) {
             for (Libro libro : libros) {
-                fw.write(libro.getCodigo() + "," + libro.getTitulo() + "," + libro.getAutor() + "," + libro.isDisponible() + "\n");
+                escritor.write(libro.getCodigo() + "," + libro.getTitulo() + "," + libro.getAutor() + "," + libro.isDisponible() + "\n");
             }
-            System.out.println("Libros guardados en " + archivo);
+            System.out.println("Libros guardados en el archivo " + nombreArchivo);
         } catch (IOException e) {
             System.out.println("Error al guardar libros: " + e.getMessage());
         }
     }
 
-    // Carga libros desde archivo
-    public void cargarLibrosDesdeArchivo(String archivo) {
-        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+    // Carga los libros desde archivo.
+    public void cargarLibrosDesdeArchivo(String nombreArchivo) {
+        try (BufferedReader lector = new BufferedReader(new FileReader(nombreArchivo))) {
             String linea;
             libros.clear();
-            while ((linea = br.readLine()) != null) {
+            while ((linea = lector.readLine()) != null) {
                 String[] partes = linea.split(",");
                 if (partes.length == 4) {
                     String codigo = partes[0];
@@ -195,29 +191,33 @@ public class Biblioteca {
                     libros.add(new Libro(codigo, titulo, autor, disponible));
                 }
             }
-            System.out.println("Libros cargados desde " + archivo);
+            System.out.println("Libros cargados desde el archivo " + nombreArchivo);
         } catch (IOException e) {
             System.out.println("Error al cargar libros: " + e.getMessage());
         }
     }
 
-    // Exporta libros prestados por un usuario a archivo
-    public void exportarLibrosPrestadosPorUsuario(String rut, String archivo) {
-        ArrayList<Libro> lista = prestamosPorUsuario.get(rut);
+    // Exporta los libros prestados por un usuario a un archivo.
+    public void exportarLibrosPrestadosPorUsuario(String rut, String nombreArchivo) {
+        if (!usuarios.containsKey(rut)) {
+            System.out.println("El usuario no está registrado.");
+            return;
+        }
 
-        if (lista == null || lista.isEmpty()) {
+        ArrayList<Libro> librosPrestados = prestamosPorUsuario.get(rut);
+
+        if (librosPrestados == null || librosPrestados.isEmpty()) {
             System.out.println("Este usuario no tiene libros prestados.");
             return;
         }
 
-        try (FileWriter fw = new FileWriter(archivo)) {
-            for (Libro libro : lista) {
-                fw.write(libro.getCodigo() + "," + libro.getTitulo() + "," + libro.getAutor() + "\n");
+        try (FileWriter escritor = new FileWriter(nombreArchivo)) {
+            for (Libro libro : librosPrestados) {
+                escritor.write(libro.getCodigo() + "," + libro.getTitulo() + "," + libro.getAutor() + "\n");
             }
-            System.out.println("Libros exportados a " + archivo);
+            System.out.println("Libros prestados exportados al archivo " + nombreArchivo);
         } catch (IOException e) {
             System.out.println("Error al exportar libros: " + e.getMessage());
         }
     }
-
 }

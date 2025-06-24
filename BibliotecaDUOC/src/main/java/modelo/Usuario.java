@@ -1,9 +1,11 @@
 package modelo;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 // Clase que representa a un usuario de la biblioteca.
 public class Usuario implements Comparable <Usuario> {
+    
     private String rut;
     private String nombre;
     private String apellido;

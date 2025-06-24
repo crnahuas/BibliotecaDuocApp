@@ -49,19 +49,18 @@ public class Libro implements Comparable <Libro> {
     }
     
     // Dos libros son iguales si tienen el mismo código y título
-    @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (!(obj instanceof Libro)) return false;
+
         Libro otro = (Libro) obj;
-        return this.codigo.equalsIgnoreCase(otro.codigo) &&
-               this.titulo.equalsIgnoreCase(otro.titulo);
+        return codigo.equalsIgnoreCase(otro.codigo) && titulo.equalsIgnoreCase(otro.titulo);
     }
     
     // Ignora mayúsculas
     @Override
     public int hashCode() {
-        return codigo.toLowerCase().hashCode();
+        return (codigo + titulo).toLowerCase().hashCode();
     }
 
 }
