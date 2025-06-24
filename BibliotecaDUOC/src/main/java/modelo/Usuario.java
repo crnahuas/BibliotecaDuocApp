@@ -8,6 +8,7 @@ public class Usuario implements Comparable <Usuario> {
     private String nombre;
     private String apellido;
 
+    // Constructor principal del usuario
     public Usuario(String rut, String nombre, String apellido) {
         this.rut = rut;
         this.nombre = nombre;
@@ -33,8 +34,18 @@ public class Usuario implements Comparable <Usuario> {
             || rut.matches("^\\d{7,8}-[\\dkK]$");
     }
     
+    // Representación de usuario
     @Override
     public String toString() {
         return nombre + " " + apellido + " (RUT: " + rut + ")";
+    }
+    
+    // Dos usuarios son iguales si tienen el mismo RUT
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Usuario)) return false;
+        Usuario otro = (Usuario) obj;
+        return this.rut.equalsIgnoreCase(otro.rut);
     }
 }
