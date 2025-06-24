@@ -42,9 +42,20 @@ public class Libro implements Comparable <Libro> {
         return "[" + codigo + "] " + titulo + " - " + autor + " | " + (disponible ? "Disponible" : "Prestado");
     }
     
-    // Permite ordenar libros por título (usado en TreeSet)
+    // Permite ordenar libros por título (TreeSet)
     @Override
     public int compareTo(Libro otro) {
         return this.titulo.compareToIgnoreCase(otro.titulo);
     }
+    
+    // Dos libros son iguales si tienen el mismo código y título
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Libro)) return false;
+        Libro otro = (Libro) obj;
+        return this.codigo.equalsIgnoreCase(otro.codigo) &&
+               this.titulo.equalsIgnoreCase(otro.titulo);
+    }
+
 }
