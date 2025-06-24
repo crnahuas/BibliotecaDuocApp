@@ -1,5 +1,4 @@
 /Users/cristian/Documents/DuocUC/BibliotecaDuocApp/BibliotecaDUOC/src/main/java/cl/bibliotecaduoc/main/BibliotecaDuoc.java
-/Users/cristian/Documents/DuocUC/BibliotecaDuocApp/BibliotecaDUOC/src/main/java/cl/bibliotecaduoc/main/PruebasBiblioteca.java
 /Users/cristian/Documents/DuocUC/BibliotecaDuocApp/BibliotecaDUOC/src/main/java/excepciones/LibroNoEncontradoException.java
 /Users/cristian/Documents/DuocUC/BibliotecaDuocApp/BibliotecaDUOC/src/main/java/excepciones/LibroYaPrestadoException.java
 /Users/cristian/Documents/DuocUC/BibliotecaDuocApp/BibliotecaDUOC/src/main/java/logica/Biblioteca.java

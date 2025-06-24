@@ -22,16 +22,16 @@ public class BibliotecaDuoc {
         while (!salir) {
             System.out.println("\nMenú:");
             System.out.println("1. Registrar usuario");
-            System.out.println("2. Listar libros");
+            System.out.println("2. Lista de libros");
             System.out.println("3. Buscar libro");
             System.out.println("4. Prestar libro");
             System.out.println("5. Devolver libro");
             System.out.println("6. libros prestados");
-            System.out.println("7. Exportar libro");
-            System.out.println("8. Exportar usuarios");
-            System.out.println("9. Cargar usuarios");
-            System.out.println("10. Exportar libros");
-            System.out.println("11. Cargar libros");
+            System.out.println("7. Exportar libro por usuario");
+            System.out.println("8. Exportar lista usuarios");
+            System.out.println("9. Cargar lista usuarios");
+            System.out.println("10. Exportar lista libros");
+            System.out.println("11. Cargar lista libros");
             System.out.println("12. Salir");
             System.out.print("Seleccione una opción: ");
 

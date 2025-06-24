@@ -11,12 +11,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.HashSet;
+import java.util.Set;
 
 // Clase que administra los libros y usuarios de una biblioteca
 // Clase principal que administra libros y usuarios de una biblioteca.
 public class Biblioteca {
-
-    private ArrayList<Libro> libros = new ArrayList<>();
+    private Set<Libro> libros = new TreeSet<>();    
     private ArrayList<Libro> librosPrestados = new ArrayList<>();
     private HashMap<String, ArrayList<Libro>> prestamosPorUsuario = new HashMap<>();
     private HashMap<String, Usuario> usuarios = new HashMap<>();
@@ -48,6 +49,9 @@ public class Biblioteca {
         libros.add(new Libro("L018", "DevOps Handbook", "Gene Kim", true));
         libros.add(new Libro("L019", "Ética para Ingenieros", "Martin W. Angler", true));
         libros.add(new Libro("L020", "Tecnología y Sociedad", "Manuel Castells", true));
+        libros.add(new Libro("L021", "Java: Cómo Programar", "Paul Deitel", true));
+        libros.add(new Libro("L023", "Estructuras de Datos en Java", "Robert Lafore", true));
+        libros.add(new Libro("L024", "Arquitectura de Software", "Len Bass", true));
     }
 
     // Muestra todos los libros disponibles en la biblioteca.
